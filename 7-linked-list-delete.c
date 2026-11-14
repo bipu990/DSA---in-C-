@@ -26,11 +26,12 @@ struct node *add(struct node *first,int value)
 
     return first;
 }
-struct node *delet(int value,struct node *first)
+struct node *delet(int value, struct node *first) // my logic ......................
 {
-    struct node *p=first;
+    struct node *p = first;
+
     if (first == NULL)
-    return first;
+        return first;
 
     if (first->data == value)
     {
@@ -39,17 +40,22 @@ struct node *delet(int value,struct node *first)
         free(temp);
         return first;
     }
-    while (p->next != NULL && p->next->data != value)
+
+    while (p->next != NULL)
     {
-        p=p->next;
+        if (p->next->data == value)
+        {
+            struct node *temp = p->next;
+            p->next = temp->next;
+            free(temp);
+            return first;
+        }
+        else
+        {
+            p = p->next;
+        }
     }
-    if (p->next!=NULL)
-    {
-        struct node *temp = p->next;
-        p->next = temp->next;
-        free(temp);
-    }
-    
+
     return first;
 }
 void display(struct node *first)
